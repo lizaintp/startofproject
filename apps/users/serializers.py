@@ -5,7 +5,7 @@ from apps.users import models
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
-        fields = ('id', 'username', 'email', 'phone')
+        fields = ('id', 'username', 'email', 'phone','age')
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
@@ -18,7 +18,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.User
-        fields = ('username', 'email', 'phone', 'password', 'confirm_password')
+        fields = ('username', 'email', 'phone', 'password', 'confirm_password', 'age', 'birthday')
 
     def validate(self, attrs):
         if attrs['password'] != attrs['confirm_password']:
@@ -33,6 +33,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             username = validated_data['username'],
             email = validated_data['email'],
             phone = validated_data['phone'],
+            birthday = validated_data['birthday'],
         )
         user.set_password(validated_data['password'])
         user.save()
